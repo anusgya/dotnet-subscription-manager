@@ -1,0 +1,32 @@
+# build output
+bin/
+obj/
+
+# database
+*.db
+*.db-shm
+*.db-wal
+
+# user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# rider
+.idea/
+*.sln.iml
+
+# vs code
+.vscode/
+
+# visual studio
+.vs/
+
+# mac
+.DS_Store
+
+# runtime
+*.log
+logs/
+
