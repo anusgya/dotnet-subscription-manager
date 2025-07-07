@@ -1,0 +1,85 @@
+@model IEnumerable<dotnet_subscription_manager.Models.Subscription>
+
+@{
+    ViewData["Title"] = "Subscriptions";
+}
+
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>My Subscriptions</h2>
+        <a asp-action="Create" class="btn">➕ Add Subscription</a>
+    </div>
+    
+    <div class="total-cost">
+        Total Monthly Cost: $@ViewBag.TotalMonthly.ToString("F2")
+    </div>
+</div>
+
+<div class="card">
+    <h3>Filter & Sort</h3>
+    <form method="get" class="filter-bar">
+        <select name="category" onchange="this.form.submit()">
+            <option value="">All Categories</option>
+            @foreach (var cat in ViewBag.Categories)
+            {
+                <option value="@cat" selected="@(Context.Request.Query["category"] == cat)">@cat</option>
+            }
+        </select>
+        
+        <select name="billingCycle" onchange="this.form.submit()">
+            <option value="">All Billing Cycles</option>
+            <option value="Monthly" selected="@(Context.Request.Query["billingCycle"] == "Monthly")">Monthly</option>
+            <option value="Yearly" selected="@(Context.Request.Query["billingCycle"] == "Yearly")">Yearly</option>
+        </select>
+        
+        <select name="sortBy" onchange="this.form.submit()">
+            <option value="">Sort by Name</option>
+            <option value="price" selected="@(Context.Request.Query["sortBy"] == "price")">Sort by Price</option>
+            <option value="date" selected="@(Context.Request.Query["sortBy"] == "date")">Sort by Next Payment</option>
+        </select>
+        
+        @if (Context.Request.Query.Count > 0)
+        {
+            <a href="@Url.Action("Index")" class="btn btn-secondary">Clear Filters</a>
+        }
+    </form>
+</div>
+
+<div class="card">
+    @if (Model.Any())
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Billing Cycle</th>
+                    <th>Next Payment</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>$@item.Price.ToString("F2")</td>
+                        <td>@item.BillingCycle</td>
+                        <td>@item.NextPaymentDate.ToString("MMM dd, yyyy")</td>
+                        <td>@(item.Category ?? "-")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn" style="padding: 5px 10px; font-size: 14px;">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" style="padding: 5px 10px; font-size: 14px;">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No subscriptions found. <a asp-action="Create">Add your first subscription</a></p>
+    }
+</div>
+

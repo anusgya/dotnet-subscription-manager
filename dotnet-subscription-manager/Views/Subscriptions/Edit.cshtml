@@ -1,0 +1,49 @@
+@model dotnet_subscription_manager.Models.Subscription
+
+@{
+    ViewData["Title"] = "Edit Subscription";
+}
+
+<div class="card">
+    <h2>Edit Subscription</h2>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Id" />
+        
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="error"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Price"></label>
+            <input asp-for="Price" type="number" step="0.01" class="form-control" />
+            <span asp-validation-for="Price" class="error"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="BillingCycle"></label>
+            <select asp-for="BillingCycle" class="form-control">
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
+            </select>
+            <span asp-validation-for="BillingCycle" class="error"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="NextPaymentDate"></label>
+            <input asp-for="NextPaymentDate" type="date" class="form-control" />
+            <span asp-validation-for="NextPaymentDate" class="error"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Category"></label>
+            <input asp-for="Category" class="form-control" />
+        </div>
+        
+        <button type="submit" class="btn">Save Changes</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+

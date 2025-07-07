@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/dotnet-subscription-manager.props" />
+</Project>

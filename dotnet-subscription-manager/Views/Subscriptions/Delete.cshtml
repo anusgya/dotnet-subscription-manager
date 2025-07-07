@@ -1,0 +1,40 @@
+@model dotnet_subscription_manager.Models.Subscription
+
+@{
+    ViewData["Title"] = "Delete Subscription";
+}
+
+<div class="card">
+    <h2>Delete Subscription</h2>
+    
+    <p style="color: red; margin: 20px 0;">Are you sure you want to delete this subscription?</p>
+    
+    <table>
+        <tr>
+            <th>Name</th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Price</th>
+            <td>$@Model.Price.ToString("F2")</td>
+        </tr>
+        <tr>
+            <th>Billing Cycle</th>
+            <td>@Model.BillingCycle</td>
+        </tr>
+        <tr>
+            <th>Next Payment</th>
+            <td>@Model.NextPaymentDate.ToString("MMM dd, yyyy")</td>
+        </tr>
+        <tr>
+            <th>Category</th>
+            <td>@(Model.Category ?? "-")</td>
+        </tr>
+    </table>
+    
+    <form method="post" style="margin-top: 20px;">
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
